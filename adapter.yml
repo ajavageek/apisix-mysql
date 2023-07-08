@@ -1,0 +1,15 @@
+server:
+  host: 0.0.0.0
+  port: 12379
+
+log:
+  level: info
+
+datasource:
+  type: mysql
+  mysql:
+    host: mysql
+    port: 3306
+    username: etcd
+    password: etcd
+    database: apisix

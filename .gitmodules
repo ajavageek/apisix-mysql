@@ -1,0 +1,3 @@
+[submodule "etcd-adapter"]
+	path = etcd-adapter
+	url = https://github.com/api7/etcd-adapter.git

@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+  apisix:
+    image: apache/apisix:3.4.0-debian
+    volumes:
+      - ./config.yaml:/usr/local/apisix/conf/config.yaml:ro
+    ports:
+      - "9080:9080"
+      - "9180:9180"
+    depends_on:
+      - etcd-adapter
+    restart: always
+  etcd-adapter:
+    build: ./etcd-adapter
+    volumes:
+      - ./adapter.yml:/etcd-adapter/conf/config.yaml:ro
+    depends_on:
+      - mysql
+    restart: always
+  mysql:
+    image: bitnami/mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: etcd
+      MYSQL_PASSWORD: etcd
+      MYSQL_DATABASE: apisix
+  adminer:
+    image: adminer:standalone
+    ports:
+      - "8080:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql
+    depends_on:
+      - mysql

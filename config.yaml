@@ -1,0 +1,7 @@
+deployment:
+  admin:
+    allow_admin:
+      - 0.0.0.0/0
+  etcd:
+    host:
+      - "http://etcd-adapter:12379"
